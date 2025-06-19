@@ -260,7 +260,7 @@ function sendJobCard(chatId, telegramId) {
         reply_markup: {
             inline_keyboard: [
                 [{text: 'Apply', url:job.url}],
-                [{text: 'Save', callback_data: `save_${job._id}` }, { text: 'Skip', callback_data: 'dislike'}]
+                [{text: 'Save', callback_data: `save_${job._id}` }, { text: 'Next', callback_data: 'dislike'}]
             ]
         }
     });
