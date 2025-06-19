@@ -8,8 +8,13 @@ const userSchema = new mongoose.Schema({
         jobType: String,
         level: { type: String, enum: ['Junior', 'Intermediate', 'Senior'] },
     },
-    notificationTime: String,
+  
     isNotificationon: { type: Boolean, default: true},
+    notificationTime: {
+        type: String,
+        enum: ['morning', 'afternoon', '6h'],
+        default: 'morning'
+    },
     savejobs: [String],
     viewedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
     dislikedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],

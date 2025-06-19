@@ -5,6 +5,8 @@ const User = require('./models/User');
 const { callbackify } = require('util');
 const Job = require('./models/Jobs');
 const stripHtml = require('./utils/stripHtml');
+require('./cron/notificationJobs'); // Import cron jobs for notifications
+const cleanJobDescription = require('./utils/cleanJobDescription');
 
 const cron = require('node-cron');
 const fetchAllJobs = require('./fetchJobs/fetchAllJobs');
@@ -91,7 +93,7 @@ function showMainMenu(chatId) {
 
 // Define job types and levels
 
-const jobTypes = ['Developer', 'Graphics Designer', 'Writer', 'Product Manager', 'Marketing', 'Data Analyst','contract', 'Other'];
+const jobTypes = ['Software Development', 'Design', 'Customer Service', 'Marketing', 'Sales & Business', 'Project Management','Product', 'Data Analysis','DevOps','Human Resources','Writing','All others'];
 const levels = ['Junior', 'Intermediate', 'Senior'];
 
 // Set My Preference
@@ -248,15 +250,17 @@ function sendJobCard(chatId, telegramId) {
     }
 
     const job = session.jobs[session.index];
+    const desc = stripHtml(job.description.slice(0, 1000));
+    const cleanedDesc = cleanJobDescription(desc);
 
-    const text = `*${job.title}*\n *${job.company}*\n Posted: ${new Date(job.postedAt).toDateString()}\n\n *Skills*: ${job.skills.join(', ')}\n\n ${stripHtml(job.description.slice(0, 500))}...`;
+    const text = `*Job Title*: ${job.title}*\n*Company*: ${job.company}*\n Posted: ${new Date(job.postedAt).toDateString()}\n\n *Skills*: ${job.skills.join(', ')}\n\n *Company Description*\n${cleanedDesc}...`;
 
     bot.sendMessage(chatId, text, {
         parse_mode: 'Markdown',
         reply_markup: {
             inline_keyboard: [
                 [{text: 'Apply', url:job.url}],
-                [{text: 'Save', callback_data: `save_${job._id}` }, { text: 'Dislike', callback_data: 'dislike'}]
+                [{text: 'Save', callback_data: `save_${job._id}` }, { text: 'Skip', callback_data: 'dislike'}]
             ]
         }
     });
