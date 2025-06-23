@@ -27,7 +27,7 @@ async function sendJobUpdate(pref){
                 }
             });
         }else{
-            bot.sendMessage(use.telegramId, "No new jobs matching your preference right now, Please check later.");
+            bot.sendMessage(user.telegramId, "No new jobs matching your preference right now, Please check later.");
         }
     }
 }
