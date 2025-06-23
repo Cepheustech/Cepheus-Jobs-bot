@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const bot = require('../bot');
 const User = require('../models/User');
+require('dotenv').config();
 
 async function runTest() {
     try {
