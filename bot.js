@@ -397,3 +397,4 @@ bot.onText(/Stop Notification/, async (msg) => {
     bot.sendMessage(chatId, "Job Notificaiton has been disabed. You can re-enable them anytime.");
 });
 
+module.exports = bot;
