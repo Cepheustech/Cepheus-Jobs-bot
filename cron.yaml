@@ -1,0 +1,6 @@
+cron:
+  - name: test-job
+    schedule: "*/5 * * * *"
+    comand: node cron/testCron.js
+
+    

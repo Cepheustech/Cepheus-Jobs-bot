@@ -9,7 +9,7 @@ async function sendJobUpdate(pref){
     });
 
     for (const user of users){
-        const job = await job.findOne({
+        const job = await Job.findOne({
             jobType: user.preferences.jobType,
             level: user.preferences.level,
             _id: {$nin: user.viewedJobs, $nin: user.dislikedJobs, $nin: user.savejobs}
