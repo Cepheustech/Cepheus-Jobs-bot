@@ -1,5 +1,5 @@
 // cron/testCron.js
-
+const {mongoUri } = require('../config');
 const mongoose = require('mongoose');
 const bot = require('../bot');
 const User = require('../models/User');
@@ -7,7 +7,7 @@ require('dotenv').config();
 
 async function runTest() {
     try {
-        await mongoose.connect(process.env.MONGODB_URI)
+        await mongoose.connect(mongoUri)
 
         console.log("✅ Connected to MongoDB");
 
